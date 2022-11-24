@@ -1,1 +1,1 @@
-Change this file per month.
+Change log sometimes, keep active.
