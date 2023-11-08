@@ -12,8 +12,7 @@ import json,sys,time
 
 
 
-
-#path=sys.path[0]+r'/1.txt'
+path=sys.path[0]+r'/Secret.txt'
 num1 = 0
 
 def gettoken(refresh_token):
@@ -29,14 +28,13 @@ def gettoken(refresh_token):
     jsontxt = json.loads(html.text)
     refresh_token = jsontxt['refresh_token']
     access_token = jsontxt['access_token']
-    #with open(path, 'w+') as f:
-        #f.write(refresh_token)
+    with open(path, 'w+') as f:
+        f.write(refresh_token)
     return access_token
 def main():
-    #fo = open(path, "r+")
-    #refresh_token = fo.read()
-    #fo.close()
-    print(refresh_token)
+    fo = open(path, "r+")
+    refresh_token = fo.read()
+    fo.close()
     global num1
     localtime = time.asctime( time.localtime(time.time()) )
     access_token=gettoken(refresh_token)
@@ -54,7 +52,7 @@ def main():
         if req.get(r'https://graph.microsoft.com/v1.0/drive/root',headers=headers).status_code == 200:
             num1+=1
             print('3调用成功'+str(num1)+'次')
-        if req.get(r'https://graph.microsoft.com/v1.0/users ',headers=headers).status_code == 200:
+        if req.get(r'https://graph.microsoft.com/v1.0/users',headers=headers).status_code == 200:
             num1+=1
             print('4调用成功'+str(num1)+'次')
         if req.get(r'https://graph.microsoft.com/v1.0/me/messages',headers=headers).status_code == 200:
@@ -82,5 +80,5 @@ def main():
     except:
         print("pass")
         pass
-for _ in range(3):
+for _ in range(5):
     main()
